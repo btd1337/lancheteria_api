@@ -1,6 +1,7 @@
-import { Mongoose } from "mongoose";
+const restful = require('node-restful')
+const mongoose = restful.mongoose
 
-const MenuSchema = new Mongoose.Schema({
+const MenuSchema = new mongoose.Schema({
 	description: { type: String, required: true},
 	imagePath: { type: String, required: true},
   name: { type: String, required: true},
