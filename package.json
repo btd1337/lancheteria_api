@@ -2,8 +2,9 @@
   "name": "lancheteria",
   "version": "0.1.0",
   "description": "This project contains a basic web application to delivery food systems",
-  "main": "src/loader.js",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon",
     "production": "pm2 start src/loader.js --name lancheteria"
   },
