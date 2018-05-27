@@ -1,0 +1,27 @@
+{
+  "name": "lancheteria",
+  "version": "0.1.0",
+  "description": "This project contains a basic web application to delivery food systems",
+  "main": "src/loader.js",
+  "scripts": {
+    "dev": "nodemon",
+    "production": "pm2 start src/loader.js --name lancheteria"
+  },
+  "keywords": [
+    "lancheteria",
+    "backend"
+  ],
+  "author": "Helder Bertoldo <helder.bertoldo@gmail.com>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^4.13.13",
+    "node-restful": "^0.2.6",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "pm2": "^2.10.4"
+  }
+}
