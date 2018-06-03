@@ -1,28 +1,23 @@
 {
-  "name": "lancheteria",
-  "version": "0.1.0",
-  "description": "This project contains a basic web application to delivery food systems",
+  "name": "lancheteria-api",
+  "version": "1.0.0",
+  "description": "API de Restaurantes",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon",
-    "production": "pm2 start src/loader.js --name lancheteria"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
-  "keywords": [
-    "lancheteria",
-    "backend"
-  ],
-  "author": "Helder Bertoldo <helder.bertoldo@gmail.com>",
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "mongoose": "^4.13.13",
-    "node-restful": "^0.2.6",
-    "nodemon": "^1.11.0"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "pm2": "^2.10.4"
+    "restify": "7.2.0"
+  },
+  "devDependencies": {
+    "@types/restify": "7.2.0",
+    "prettier": "1.13.4",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.1"
   }
 }
