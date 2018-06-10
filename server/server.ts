@@ -1,3 +1,4 @@
+import * as mongoose from "mongoose";
 import * as restify from "restify";
 import { environment } from "../common/environments";
 import { Router } from "../common/router";
@@ -5,12 +6,18 @@ import { Router } from "../common/router";
 export class Server {
   private application: restify.Server;
 
-  public constructor(){
+  public constructor() {
     this.application = restify.createServer();
   }
 
   public bootstrap(routers: Router[] = []): Promise<Server> {
-    return this.initRoutes(routers).then(() => this);
+    return this.initializeDb().then(() =>
+      this.initRoutes(routers).then(() => this)
+    );
+  }
+
+  public initializeDb() {
+    return mongoose.connect(environment.db.url);
   }
 
   public initRoutes(routers: Router[]): Promise<any> {
@@ -24,8 +31,8 @@ export class Server {
         this.application.use(restify.plugins.queryParser());
 
         // routes here
-        for (const router of routers){
-          router.applyRoutes(this.application)
+        for (const router of routers) {
+          router.applyRoutes(this.application);
         }
 
         this.application.listen(environment.server.port, () => {

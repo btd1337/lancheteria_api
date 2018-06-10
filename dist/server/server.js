@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose = require("mongoose");
 const restify = require("restify");
 const environments_1 = require("../common/environments");
 class Server {
@@ -7,7 +8,10 @@ class Server {
         this.application = restify.createServer();
     }
     bootstrap(routers = []) {
-        return this.initRoutes(routers).then(() => this);
+        return this.initializeDb().then(() => this.initRoutes(routers).then(() => this));
+    }
+    initializeDb() {
+        return mongoose.connect(environments_1.environment.db.url);
     }
     initRoutes(routers) {
         return new Promise((resolve, reject) => {
