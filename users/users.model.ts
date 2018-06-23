@@ -1,17 +1,26 @@
-const users = [
-  { id: "1", name: "Peter Parker", email: "peter@marvel.com" },
-  { id: "2", name: "Bruce Wayne", email: "bruce@dc.com" }
-];
+import * as mongoose from 'mongoose';
 
-export class User {
-  public static findAll(): Promise<any> {
-    return Promise.resolve(users);
-  }
-
-  public static findById(id: string): Promise<any> {
-    return new Promise(resolve => {
-      const user = users.find(currentUser => currentUser.id === id);
-      resolve(user);
-    });
-  }
+export interface IUser extends mongoose.Document {
+  name: string;
+  email: string;
+  password: string;
 }
+
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true
+    },
+    name: {
+      type: String
+    },
+    password: {
+      select: false,
+      type: String
+    }
+  },
+  { versionKey: false }
+);
+
+export const User = mongoose.model<IUser>('User', userSchema);
