@@ -5,7 +5,10 @@
   "rules": {
     "quotemark": [true, "single"],
     "semicolon": [true, "always"],
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "no-this-assignment": [true, {
+      "allowed-names": ["^document$"]
+    }]
   },
   "rulesDirectory": []
 }

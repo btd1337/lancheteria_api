@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const restify = require("restify");
 const environments_1 = require("../common/environments");
+const error_handler_1 = require("./error.handler");
 const merge_patch_parser_1 = require("./merge-patch.parser");
 class Server {
     constructor() {
@@ -31,6 +32,7 @@ class Server {
                 this.application.listen(environments_1.environment.server.port, () => {
                     resolve(this.application);
                 });
+                this.application.on('restifyError', error_handler_1.handleError);
             }
             catch (error) {
                 reject(error);
