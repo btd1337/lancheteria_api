@@ -4,6 +4,7 @@
   "description": "API de Restaurantes",
   "main": "index.js",
   "scripts": {
+    "debug": "node --nolazy --inspect-brk=9229 dist/main.js",
     "start": "nodemon dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tslint-check": "tslint-config-prettier-check ./tslint.json"

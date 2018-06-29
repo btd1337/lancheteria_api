@@ -1,6 +1,7 @@
 import * as restify from 'restify';
 import { NotFoundError } from 'restify-errors';
 import { Router } from '../common/router';
+import { handleError } from './../server/error.handler';
 import { User } from './users.model';
 
 class UsersRouter extends Router {
@@ -37,7 +38,7 @@ class UsersRouter extends Router {
     // editOne
     application.put('/users/:id', (req, resp, next) => {
       const options = { overwrite: true, runValidators: true };
-      User.update({ _id: req.params.id }, req.body, options)
+      /* User.update({ _id: req.params.id }, req.body, options)
         .exec()
         .then(result => {
           if (result.n) {
@@ -51,7 +52,18 @@ class UsersRouter extends Router {
           }
         })
         .then(this.render(resp, next))
-        .catch(next);
+        .catch(next); */
+
+      User.findByIdAndUpdate(req.params.id, req.body, options, function(
+        err,
+        user
+      ) {
+        if (err) {
+          return handleError(req, resp, err, next);
+        }
+
+        resp.send(user);
+      });
     });
 
     // editOne
