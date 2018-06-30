@@ -56,7 +56,7 @@ const hashPassword = (obj, next) => {
 };
 
 const saveMiddleware = function(next) {
-  const document: User = this;
+  const document: IUser = this;
 
   if (!document.isModified('password')) {
     next();

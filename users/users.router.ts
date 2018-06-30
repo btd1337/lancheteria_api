@@ -12,17 +12,11 @@ class UsersRouter extends ModelRouter<User> {
     });
   }
   public applyRoutes(application: restify.Server) {
-    // getAll
     application.get('/users', this.findAll);
-    // getOne
     application.get('/users/:id', [this.validateId, this.findById]);
-    // createOne
     application.post('/users', this.save);
-    // editOne
     application.put('/users/:id', [this.validateId, this.replace]);
-    // editOne
     application.patch('/users/:id', [this.validateId, this.update]);
-    // deleteOne
     application.del('/users/:id', [this.validateId, this.delete]);
   }
 }
