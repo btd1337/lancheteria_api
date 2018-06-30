@@ -65,7 +65,6 @@ const saveMiddleware = function(next) {
   }
 };
 
-// tslint:disable-next-line:only-arrow-functions
 const updateMiddleware = function(next) {
   if (this.getUpdate().password) {
     hashPassword(this.getUpdate(), next);
