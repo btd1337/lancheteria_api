@@ -9,6 +9,10 @@ export interface IUser extends mongoose.Document {
   password: string;
 }
 
+export interface IUserModel extends mongoose.Model<IUser> {
+  findByEmail(email: string): Promise<IUser>;
+}
+
 const userSchema = new mongoose.Schema(
   {
     cpf: {
@@ -45,6 +49,10 @@ const userSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+userSchema.statics.findByEmail = function(email: string) {
+  return this.findOne({ email });
+};
+
 const hashPassword = (obj, next) => {
   bcrypt
     .hash(obj.password, environment.security.saltRounds)
@@ -77,4 +85,4 @@ userSchema.pre('findOneAndUpdate', updateMiddleware);
 
 userSchema.pre('update', updateMiddleware);
 
-export const User = mongoose.model<IUser>('User', userSchema);
+export const User = mongoose.model<IUser, IUserModel>('User', userSchema);
