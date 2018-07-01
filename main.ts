@@ -1,11 +1,12 @@
 import { restaurantsRouter } from './restaurants/restaurants.router';
+import { reviewsRouter } from './reviews/reviews.router';
 import { Server } from './server/server';
 import { usersRouter } from './users/users.router';
 
 const server = new Server();
 
 server
-  .bootstrap([restaurantsRouter, usersRouter])
+  .bootstrap([restaurantsRouter, reviewsRouter, usersRouter])
   .then(auxServer => {
     console.log(
       'Server is listening on:',
