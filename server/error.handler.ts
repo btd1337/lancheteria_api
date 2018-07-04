@@ -1,38 +1,38 @@
-import * as restify from 'restify';
+import * as restify from 'restify'
 
 export const handleError = (
-  req: restify.Request,
-  resp: restify.Response,
-  err,
-  done
+	req: restify.Request,
+	resp: restify.Response,
+	err,
+	done
 ) => {
-  err.toJSON = () => {
-    return {
-      message: err.message
-    };
-  };
-  switch (err.name) {
-    case 'MongoError': {
-      if (err.code === 11000) {
-        err.statusCode = 400;
-      }
-      break;
-    }
-    case 'ValidationError': {
-      err.statusCode = 400;
-      const messages: any[] = [];
+	err.toJSON = () => {
+		return {
+			message: err.message
+		}
+	}
+	switch (err.name) {
+		case 'MongoError': {
+			if (err.code === 11000) {
+				err.statusCode = 400
+			}
+			break
+		}
+		case 'ValidationError': {
+			err.statusCode = 400
+			const messages: any[] = []
 
-      for (const name in err.errors) {
-        if (err.errors[name]) {
-          messages.push({ message: err.errors[name].message });
-        }
-      }
+			for (const name in err.errors) {
+				if (err.errors[name]) {
+					messages.push({ message: err.errors[name].message })
+				}
+			}
 
-      err.toJSON = () => ({
-        errors: messages
-      });
-      break;
-    }
-  }
-  return done();
-};
+			err.toJSON = () => ({
+				errors: messages
+			})
+			break
+		}
+	}
+	return done()
+}

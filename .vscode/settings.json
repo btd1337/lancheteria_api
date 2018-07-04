@@ -3,5 +3,6 @@
 	"prettier.singleQuote": true,
 	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
-	"editor.fontFamily": "'Space Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'"
+	"editor.fontFamily":
+		"'Space Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'"
 }

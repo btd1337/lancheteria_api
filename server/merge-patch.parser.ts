@@ -1,20 +1,20 @@
-import * as restify from 'restify';
-import { BadRequestError } from 'restify-errors';
+import * as restify from 'restify'
+import { BadRequestError } from 'restify-errors'
 
-const mpContentType = 'application/merge-patch+json';
+const mpContentType = 'application/merge-patch+json'
 
 export const mergePatchBodyParser = (
-  req: restify.Request,
-  resp: restify.Response,
-  next
+	req: restify.Request,
+	resp: restify.Response,
+	next
 ) => {
-  if (req.getContentType() === mpContentType && req.method === 'PATCH') {
-    (req as any).rawBody = req.body;
-    try {
-      req.body = JSON.parse(req.body);
-    } catch (error) {
-      return next(new BadRequestError(`Invalid content: ${error.message}`));
-    }
-  }
-  return next();
-};
+	if (req.getContentType() === mpContentType && req.method === 'PATCH') {
+		;(req as any).rawBody = req.body
+		try {
+			req.body = JSON.parse(req.body)
+		} catch (error) {
+			return next(new BadRequestError(`Invalid content: ${error.message}`))
+		}
+	}
+	return next()
+}
