@@ -1,5 +1,6 @@
 'use strict'
 Object.defineProperty(exports, '__esModule', { value: true })
+const main_router_1 = require('./main.router')
 const restaurants_router_1 = require('./restaurants/restaurants.router')
 const reviews_router_1 = require('./reviews/reviews.router')
 const server_1 = require('./server/server')
@@ -7,6 +8,7 @@ const users_router_1 = require('./users/users.router')
 const server = new server_1.Server()
 server
 	.bootstrap([
+		main_router_1.mainRouter,
 		restaurants_router_1.restaurantsRouter,
 		reviews_router_1.reviewsRouter,
 		users_router_1.usersRouter

@@ -4,6 +4,7 @@ import { Router } from './router'
 
 export abstract class ModelRouter<D> extends Router {
 	public basePath: string
+	public pageSize: number = 4
 
 	constructor(protected model: mongoose.Model<D>) {
 		super()
@@ -16,6 +17,24 @@ export abstract class ModelRouter<D> extends Router {
 		return resource
 	}
 
+	public envelopeAll(documents: any[], options: any = {}): any {
+		const resource: any = {
+			_links: {
+				self: `${options.url}`
+			},
+			items: documents
+		}
+		if (options.page) {
+			if (options.page > 1) {
+				resource._links.previous = `${this.basePath}?_page=${options.page - 1}`
+			}
+			if (options.page * options.pageSize < options.count) {
+				resource._links.next = `${this.basePath}?_page=${options.page + 1}`
+			}
+		}
+		return resource
+	}
+
 	public validateId = (req, resp, next) => {
 		if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
 			next(new NotFoundError('Document not found'))
@@ -25,9 +44,26 @@ export abstract class ModelRouter<D> extends Router {
 	}
 
 	public findAll = (req, resp, next) => {
+		let page = parseInt(req.query._page || 1, 10)
+		page = page > 0 ? page : 1
+		const skip = (page - 1) * this.pageSize
 		this.model
-			.find()
-			.then(this.renderAll(resp, next))
+			.count({})
+			.exec()
+			.then((count) => {
+				this.model
+					.find()
+					.skip(skip)
+					.limit(this.pageSize)
+					.then(
+						this.renderAll(resp, next, {
+							count,
+							page,
+							pageSize: this.pageSize,
+							url: req.url
+						})
+					)
+			})
 			.catch(next)
 	}
 

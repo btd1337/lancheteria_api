@@ -1,4 +1,4 @@
-import { rootRouter } from './common/root-router'
+import { mainRouter } from './main.router'
 import { restaurantsRouter } from './restaurants/restaurants.router'
 import { reviewsRouter } from './reviews/reviews.router'
 import { Server } from './server/server'
@@ -7,7 +7,7 @@ import { usersRouter } from './users/users.router'
 const server = new Server()
 
 server
-	.bootstrap([restaurantsRouter, reviewsRouter, usersRouter])
+	.bootstrap([mainRouter, restaurantsRouter, reviewsRouter, usersRouter])
 	.then((auxServer) => {
 		// tslint:disable-next-line:no-console
 		console.log('Server is listening on:', auxServer.getApplication().address())
