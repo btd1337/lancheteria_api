@@ -53,4 +53,8 @@ export class Server {
 	public getApplication() {
 		return this.application
 	}
+
+	public shutdown() {
+		return mongoose.disconnect().then(() => this.application.close())
+	}
 }
